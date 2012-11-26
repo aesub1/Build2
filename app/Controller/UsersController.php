@@ -13,9 +13,6 @@
                     
                 }
                 
-
-               
-               
             public function login() {
                 $this->theme='Login';
                 //$this->redirect(array('controller' => 'organisations', 'action' => 'view'));
@@ -24,10 +21,11 @@
                     if ($this->Auth->login()) { // successful login 
                     	// check suspend status
                     	if (!$this->Session->read('Auth.User.is_suspended')){
-	                        if($this->Session->read('Auth.User.role') == 'client'){ 
-    	                      $this->redirect(array('controller' => 'procurements', 'action' => 'index'));
+                    		// var_dump($this->Session->read('Auth.User.access_level'));// DEBUG ONLY
+	                        if($this->Session->read('Auth.User.access_level') == 'User' || $this->Session->read('Auth.User.access_level') == 'Superuser'){ 
+    	                      $this->redirect(array('controller' => 'products', 'action' => 'index'));
         	                  
-            	            }else if(($this->Session->read('Auth.User.role') == 'admin')|| ($this->Session->read('Auth.User.role') == 'staff'|| ($this->Session->read('Auth.User.role') == 'superstaff'))){
+            	            }else if(($this->Session->read('Auth.User.access_level') == 'Administrator')|| ($this->Session->read('Auth.User.access_level') == 'Staff'|| ($this->Session->read('Auth.User.role') == 'Superstaff'))){
                 	        	
                     	   			 $this->redirect(array('controller' => 'jobs', 'action' => 'index'));
                         	} else { // unsuccessful login

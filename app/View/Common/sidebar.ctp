@@ -13,15 +13,20 @@
 
 	<p><?php  if ($isStaff) {echo $this -> Html ->link('Client Maintenance', array('controller'=>'organisations','action'=>'index')); }?></p>
     
+    <p><?php echo $this -> Html ->link('View Catalogue', array('controller'=>'products','action'=>'index'));?></p>
+    
     <p><?php echo $this -> Html ->link('Job Maintenance', array('controller'=>'jobs','action'=>'index')); ?></p>
     
     <p><?php echo $this -> Html ->link('New Job', array('controller'=>'Newjobs','action'=>'index'));?></p>
 
-	<p><?php echo $this -> Html ->link('Freight Charge', array('controller'=>'freights','action'=>'index'));?></p>
+	<p><?php
+		if ($isStaff){ 
+		echo $this -> Html ->link('Freight Charge', array('controller'=>'freights','action'=>'index'));}
+	?></p>
 
 	<p><?php
 		
-		if($userInfo['role'] == 'admin'){
+		if($userInfo['access_level'] == 'admin'){
 			echo $this-> Html->link('Staff Maintenance', array('controller'=>'staffs','action'=>'index'));
 		}
 	

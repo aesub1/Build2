@@ -27,7 +27,7 @@ class Order extends AppModel {
 		),
 		'phone' => array(
 			'notempty' => array(
-				'rule' => array('phone'),
+				'rule' => array('numeric'),
 				'message' => 'Phone is invalid',
 				//'allowEmpty' => false,
 				//'required' => true,

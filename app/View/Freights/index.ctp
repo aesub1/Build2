@@ -1,12 +1,15 @@
+<?php echo $this->Html->script('jtable.js',false);?>
 <div class="freights index">
 <?php $this->extend('../Common/sidebar'); ?>
 	<h2><?php echo __('Freights');?></h2>
-	<table>
+	<table id="data">
+	<thead>
 	<tr>
 			<th><?php echo __('Freight');?></th>
 			<th><?php echo __('Cost');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
+	</thead>
 	<?php
 	foreach ($freights as $freight): ?>
 	<tr>
@@ -20,22 +23,9 @@
 	</tr>
 <?php endforeach; ?>
 	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
-
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
-	</div>
+	
 </div>
-<div class="actions">
+<div class="jobs actions">
 	<ul>
 		<li><?php echo $this->Html->link(__('New'), array('action' => 'add')); ?></li>
 		<!--<li><?php echo $this->Html->link(__('List Orders'), array('controller' => 'orders', 'action' => 'index')); ?> </li>-->

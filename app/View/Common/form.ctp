@@ -27,7 +27,8 @@ All forms have shared identical elements.
 	//var_dump($organisations);
 	if ($isStaff){
 		// For Build 3: javascript use for refreshing the address table (select bar)
-		echo $this->Form->input('Customerform.select',array('label'=>'Select an organisation or use fields below to overwrite','type'=>'select','options'=>$organisations,'onchange'=>'alert("The ADDRESS BAR!");'));
+		//echo $this->Form->input('Customerform.select',array('label'=>'Select an organisation or use fields below to overwrite','type'=>'select','options'=>$organisations,'onchange'=>'alert("The ADDRESS BAR!");'));
+		echo $this->Form->input('Customerform.select',array('label'=>'Select an organisation or use fields below to overwrite','type'=>'select','options'=>$organisations,));
 	}
 	// 	for general form only
 	echo $this->Form->input('Customerform.company',array('label'=>'COMPANY NAME'));
