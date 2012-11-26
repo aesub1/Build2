@@ -1,63 +1,27 @@
 <?php
 App::uses('AppController', 'Controller');
-/**
- * Orders Controller
- *
- * @property Order $Order
- */
 class OrdersController extends AppController {
 
-
-/**
- * index method
- *
- * @return void
- */
-	public function index() {
+	public function admin_index() {
 		$this->Order->recursive = 0;
 		$this->set('orders', $this->paginate());
 	}
 
-/**
- * view method
- *
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
+	public function admin_view($id = null) {
 		$this->Order->id = $id;
 		if (!$this->Order->exists()) {
 			throw new NotFoundException(__('Invalid order'));
 		}
-		$this->set('order', $this->Order->read(null, $id));
+		$order = $this->Order->find('first', array(
+			'recursive' => 1,
+			'conditions' => array(
+				'Order.id' => $id
+			)
+		));
+		$this->set(compact('order'));
 	}
 
-/**
- * add method
- *
- * @return void
- */
-	public function add() {
-		if ($this->request->is('post')) {
-			$this->Order->create();
-			if ($this->Order->save($this->request->data)) {
-				$this->Session->setFlash(__('The order has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The order could not be saved. Please, try again.'));
-			}
-		}
-		$freights = $this->Order->Freight->find('list');
-		$this->set(compact('freights'));
-	}
-
-/**
- * edit method
- *
- * @param string $id
- * @return void
- */
-	public function edit($id = null) {
+	public function admin_edit($id = null) {
 		$this->Order->id = $id;
 		if (!$this->Order->exists()) {
 			throw new NotFoundException(__('Invalid order'));
@@ -72,17 +36,9 @@ class OrdersController extends AppController {
 		} else {
 			$this->request->data = $this->Order->read(null, $id);
 		}
-		$freights = $this->Order->Freight->find('list');
-		$this->set(compact('freights'));
 	}
 
-/**
- * delete method
- *
- * @param string $id
- * @return void
- */
-	public function delete($id = null) {
+	public function admin_delete($id = null) {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
 		}
@@ -92,9 +48,10 @@ class OrdersController extends AppController {
 		}
 		if ($this->Order->delete()) {
 			$this->Session->setFlash(__('Order deleted'));
-			$this->redirect(array('action' => 'index'));
+			$this->redirect(array('action'=>'index'));
 		}
 		$this->Session->setFlash(__('Order was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+
 }
